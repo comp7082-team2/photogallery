@@ -72,9 +72,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void displayPhoto(String path) {
-        ImageView iv = (ImageView) findViewById(R.id.imageView);
-        TextView tv = (TextView) findViewById(R.id.timeStampTextView);
-        EditText et = (EditText) findViewById(R.id.captionEditText);
+        ImageView iv = (ImageView) findViewById(R.id.ivGallery);
+        TextView tv = (TextView) findViewById(R.id.tvTimestamp);
+        EditText et = (EditText) findViewById(R.id.etCaption);
         if (path == null || path =="") {
             iv.setImageResource(R.mipmap.ic_launcher);
             et.setText("");
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode,resultCode,data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            ImageView mImageView = (ImageView) findViewById(R.id.imageView);
+            ImageView mImageView = (ImageView) findViewById(R.id.ivGallery);
             mImageView.setImageBitmap(BitmapFactory.decodeFile(mCurrentPhotoPath));
             photos = findPhotos();
         }
