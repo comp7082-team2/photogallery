@@ -106,4 +106,8 @@ public class MainActivity extends AppCompatActivity {
             photos = findPhotos();
         }
     }
+    public void goToSearchScreen(View view) {
+        Intent intent = new Intent(MainActivity.this, com.example.photogallery.SearchActivity.class);
+        startActivity(intent);
+    }
 }
