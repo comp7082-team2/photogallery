@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ivGallery"
         android:layout_width="160dp"
         android:layout_height="128dp"
         android:layout_marginTop="36dp"
@@ -19,7 +19,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
-        android:id="@+id/leftButton"
+        android:id="@+id/btnPrev"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -29,7 +29,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/rightButton"
+        android:id="@+id/btnNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="256dp"
@@ -39,29 +39,29 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/snapButton"
+        android:id="@+id/snap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="256dp"
         android:text="Snap"
         android:onClick="takePhoto"
-        app:layout_constraintEnd_toStartOf="@+id/rightButton"
+        app:layout_constraintEnd_toStartOf="@+id/btnNext"
         app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toEndOf="@+id/leftButton"
+        app:layout_constraintStart_toEndOf="@+id/btnPrev"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/timeStampTextView"
+        android:id="@+id/tvTimestamp"
         android:layout_width="97dp"
         android:layout_height="22dp"
         android:text="Datestamp"
-        app:layout_constraintBottom_toTopOf="@+id/snapButton"
+        app:layout_constraintBottom_toTopOf="@+id/snap"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/ivGallery" />
 
     <EditText
-        android:id="@+id/captionEditText"
+        android:id="@+id/etCaption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -71,11 +71,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/snapButton"
+        app:layout_constraintTop_toBottomOf="@+id/snap"
         app:layout_constraintVertical_bias="0.287" />
 
     <Button
-        android:id="@+id/searchButton"
+        android:id="@+id/btnSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Search"
