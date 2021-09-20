@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Environment;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -75,6 +76,23 @@ public class MainActivity extends AppCompatActivity {
         return photos;
     }
 
+    public void scrollPhotos(View v) {
+        switch (v.getId()) {
+            case R.id.btnPrev:
+                if (index > 0) {
+                    index--;
+                }
+                break;
+            case R.id.btnNext:
+                if (index < (photos.size() - 1)) {
+                index++;
+            }
+            break;
+            default:
+                break;
+        }
+        displayPhoto(photos.get(index));
+    }
 
     private void displayPhoto(String path) {
         ImageView iv = (ImageView) findViewById(R.id.ivGallery);

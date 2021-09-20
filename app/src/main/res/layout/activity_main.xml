@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="256dp"
-        android:text="Left"
+        android:text="Left" android:onClick="scrollPhotos"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="256dp"
         android:layout_marginEnd="16dp"
-        android:text="Right"
+        android:text="Right" android:onClick="scrollPhotos"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
