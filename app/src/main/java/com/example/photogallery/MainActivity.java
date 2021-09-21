@@ -77,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void scrollPhotos(View v) {
+        String newFileName = updatePhoto(photos.get(index), ((EditText) findViewById(R.id.etCaption)).getText().toString());
+        photos.set(index, newFileName);
+
         switch (v.getId()) {
             case R.id.btnPrev:
                 if (index > 0) {
@@ -108,6 +111,18 @@ public class MainActivity extends AppCompatActivity {
             et.setText(attr[1]);
             tv.setText(attr[2]);
         }
+    }
+
+    private String updatePhoto(String path, String caption) {
+        String[] attr = path.split("_");
+        if (attr.length >= 3) {
+            String pathname = attr[0] + "_" + caption + "_" + attr[2] + "_" + attr[3];
+            File to = new File(pathname);
+            File from = new File(path);
+            from.renameTo(to);
+            return pathname;
+        }
+        return path;
     }
 
     private File createImageFile() throws IOException {
