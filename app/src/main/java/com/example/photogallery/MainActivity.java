@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
                     else{
                         // lat != 0 and long != 0, then match lat & long
                         latitudeBool = convert(Double.parseDouble(latitude)).equals(exifLatitude);
-                        latitudeBoolRef = latitudeRef(Double.parseDouble(latitude)).equals(exifLatitude);
+                        latitudeBoolRef = latitudeRef(Double.parseDouble(latitude)).equals(exifLatitude_ref);
                         longitudeBool = convert(Double.parseDouble(longitude)).equals(exifLongitude);
                         longitudeBoolRef = longitudeRef(Double.parseDouble(longitude)).equals(exifLongitude_ref);
                         geoBool = latitudeBool && latitudeBoolRef && longitudeBool && longitudeBoolRef;
