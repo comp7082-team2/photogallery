@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
             et.setText("");
             tv.setText("");
         } else {
+            mCurrentPhotoPath = path;
             iv.setImageBitmap(BitmapFactory.decodeFile(path));
             String[] attr = path.split("_");
             et.setText(attr[1]);
@@ -170,5 +171,15 @@ public class MainActivity extends AppCompatActivity {
     public void openSearch(View v) {
         Intent searchIntent = new Intent(this, SearchActivity.class);
         startActivityForResult(searchIntent, SEARCH_ACTIVITY_REQUEST_CODE);
+    }
+
+    public void sharePhoto(View v) {
+        String type = "image/jpg";
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType(type);
+        File media = new File(mCurrentPhotoPath);
+        System.out.println("Current Photo: "+ mCurrentPhotoPath);
+        share.putExtra(Intent.EXTRA_STREAM, Uri.parse(mCurrentPhotoPath));
+        startActivity(Intent.createChooser(share, "share image"));
     }
 }
