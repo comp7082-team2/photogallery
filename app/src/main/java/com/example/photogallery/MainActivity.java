@@ -1,12 +1,9 @@
 package com.example.photogallery;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 
 import android.location.Location;
@@ -55,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        photos = findPhotos(new Date(Long.MIN_VALUE), new Date(), "");
+        photos = findPhotos(new Date(Long.MIN_VALUE), new Date(), null, null, "");
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         if (photos.size() == 0) {
@@ -175,16 +172,66 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private ArrayList<String> findPhotos(Date startTimestamp, Date endTimestamp, String keywords) {
+    private ArrayList<String> findPhotos(Date startTimestamp, Date endTimestamp, String latitude, String longitude, String keywords) {
         File file = new File(Environment.getExternalStorageDirectory()
             .getAbsolutePath(), "/Android/data/com.example.photogallery/files/Pictures");
         ArrayList<String> photos = new ArrayList<String>();
         File[] fList = file.listFiles();
         if (fList != null) {
             for (File f : fList) {
-                if (((startTimestamp == null && endTimestamp == null) || (f.lastModified() >= startTimestamp.getTime()                      && f.lastModified() <= endTimestamp.getTime())
-                ) && (keywords == "" || f.getPath().contains(keywords)))
+                //check exif lat & long
+                ExifInterface exif = null;
+                String exifLatitude, exifLatitude_ref, exifLongitude, exifLongitude_ref;
+                try {
+                    exif = new ExifInterface(f.getPath());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                exifLatitude = exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE);
+                exifLatitude_ref = exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE_REF);
+                exifLongitude = exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE);
+                exifLongitude_ref = exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF);
+
+                boolean geoBool;
+                boolean longitudeBool, longitudeBoolRef, latitudeBool, latitudeBoolRef;
+
+                if (latitude == null || latitude.isEmpty()){
+                    if (longitude == null || longitude.isEmpty()){
+                        // lat and long == 0, then match all as true
+                        geoBool = true;
+                    }
+                    else {
+                        // lat = 0 and long != 0, then only match lat
+                        longitudeBool = convert(Double.parseDouble(longitude)).equals(exifLongitude);
+                        longitudeBoolRef = longitudeRef(Double.parseDouble(longitude)).equals(exifLongitude_ref);
+                        geoBool = longitudeBool && longitudeBoolRef;
+                    }
+                }
+                else {
+                    if (longitude == null || longitude.isEmpty()){
+                        // lat != 0 and long == 0, then only match lat
+                        latitudeBool = convert(Double.parseDouble(latitude)).equals(exifLatitude);
+                        latitudeBoolRef = latitudeRef(Double.parseDouble(latitude)).equals(exifLatitude_ref);
+                        geoBool = latitudeBool && latitudeBoolRef;
+                    }
+                    else{
+                        // lat != 0 and long != 0, then match lat & long
+                        latitudeBool = convert(Double.parseDouble(latitude)).equals(exifLatitude);
+                        latitudeBoolRef = latitudeRef(Double.parseDouble(latitude)).equals(exifLatitude);
+                        longitudeBool = convert(Double.parseDouble(longitude)).equals(exifLongitude);
+                        longitudeBoolRef = longitudeRef(Double.parseDouble(longitude)).equals(exifLongitude_ref);
+                        geoBool = latitudeBool && latitudeBoolRef && longitudeBool && longitudeBoolRef;
+                    }
+                }
+
+                if (
+                        ((startTimestamp == null && endTimestamp == null) || (f.lastModified() >= startTimestamp.getTime() && f.lastModified() <= endTimestamp.getTime()))
+                                && (geoBool)
+                                && (keywords == "" || f.getPath().contains(keywords))
+                ) {
                     photos.add(f.getPath());
+                }
             }
         }
         return photos;
@@ -267,9 +314,11 @@ public class MainActivity extends AppCompatActivity {
                     startTimestamp = null;
                     endTimestamp = null;
                 }
+                String latitude = (String) data.getStringExtra("LATITUDE");
+                String longitude = (String) data.getStringExtra("LONGITUDE");
                 String keywords = (String) data.getStringExtra("KEYWORDS");
                 index = 0;
-                photos = findPhotos(startTimestamp, endTimestamp, keywords);
+                photos = findPhotos(startTimestamp, endTimestamp, latitude, longitude, keywords);
                 if (photos.size() == 0) {
                     displayPhoto(null);
                 } else {
@@ -281,7 +330,7 @@ public class MainActivity extends AppCompatActivity {
             ImageView mImageView = (ImageView) findViewById(R.id.ivGallery);
             mImageView.setImageBitmap(BitmapFactory.decodeFile(mCurrentPhotoPath));
             setExif(mCurrentPhotoPath);
-            photos = findPhotos(new Date(Long.MIN_VALUE), new Date(), "");
+            photos = findPhotos(new Date(Long.MIN_VALUE), new Date(), null, null, "");
         }
     }
     public void openSearch(View v) {
