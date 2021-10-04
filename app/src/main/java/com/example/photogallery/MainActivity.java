@@ -135,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
     // convert latitude or longitude into DMS (degree minute second) format.
     synchronized public static final String convert(double lat_long) {
+        lat_long = Math.round(lat_long*10000.0)/10000.0;
         lat_long=Math.abs(lat_long);
         int degree = (int) lat_long;
         lat_long *= 60;
