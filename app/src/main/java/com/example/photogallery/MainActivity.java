@@ -64,11 +64,13 @@ public class MainActivity extends AppCompatActivity {
             displayPhoto(photos.get(index));
         }
 
+        // creates location request object
         locationRequest = LocationRequest.create();
-        locationRequest.setInterval(1000);
-        locationRequest.setFastestInterval(5000);
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(30000);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
+        // updates last location on request
         locationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
@@ -105,14 +107,14 @@ public class MainActivity extends AppCompatActivity {
         fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
-                // Got last known location. In some rare situations this can be null.
                 if (location != null) {
-                    // Logic to handle location object
                     latitude = location.getLatitude();
                     longitude = location.getLongitude();
 
                     try {
                         ExifInterface exif = new ExifInterface(filename);
+                        exif.setAttribute(ExifInterface.TAG_GPS_LATITUDE_REF, latitudeRef(latitude));
+                        exif.setAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF, longitudeRef(longitude));
                         exif.setAttribute(ExifInterface.TAG_GPS_LATITUDE, convert(latitude));
                         exif.setAttribute(ExifInterface.TAG_GPS_LONGITUDE, convert(longitude));
                         exif.saveAttributes();
@@ -122,6 +124,16 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    // converts latitude reference from decimal for DMS (degree minute second) format
+    public static String latitudeRef(double latitude) {
+        return latitude<0.0d?"S":"N";
+    }
+
+    // converts longitude reference from decimal for DMS (degree minute second) format
+    public static String longitudeRef(double longitude) {
+        return longitude<0.0d?"W":"E";
     }
 
     // convert latitude or longitude into DMS (degree minute second) format.
