@@ -1,4 +1,4 @@
-package com.example.photogallery;
+package com.example.photogallery.Views;
 
 import android.content.Intent;
 
@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 import android.widget.EditText;
+
+import com.example.photogallery.R;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

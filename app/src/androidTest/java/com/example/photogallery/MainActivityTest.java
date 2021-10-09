@@ -24,6 +24,9 @@ import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+
+import com.example.photogallery.Views.MainActivity;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,7 +38,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
