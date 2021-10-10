@@ -50,6 +50,7 @@ public class PhotoRepository implements IPhotoRepository {
                 })
                 // Filter for photos with a caption that contains search keywords
                 .filter(photo -> keywords == null || keywords.isEmpty() || photo.getCaption().contains(keywords))
+                // Filter for photos that match the provided latitude and/or longitude
                 .filter(photo -> {
                     try {
                         float[] latAndLong = new float[2];
