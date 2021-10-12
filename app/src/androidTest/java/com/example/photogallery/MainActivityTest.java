@@ -47,6 +47,9 @@ public class MainActivityTest {
 
     public static final String TAG = MainActivityTest.class.getName();
     public static final String TEST_CAPTION = "test caption";
+    public static final String NEW_TEST_CAPTION = "new caption";
+    public static final String TEXT_DATE_FORMAT = "yyyy‐MM‐dd HH:mm:ss";
+    public static final String FILE_DATE_FORMAT = "yyyyMMdd_HHmmss";
 
     @Rule
     public ActivityScenarioRule<MainActivity> mainActivityActivityScenarioRule =
@@ -60,19 +63,27 @@ public class MainActivityTest {
     public static void setUp() {
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         copyResources(context, R.drawable.test_image);
+        // Sleep for 1 second, add a second image
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Log.e(TAG, e.getMessage(), e);
+        }
+        copyResources(context, R.drawable.test_image);
+
     }
 
     @AfterClass
     /**
-     * Static method that runs after all the tests in this class. Deletes any files that match the
-     * TEST_CAPTION used by the set up.
+     * Static method that runs after all the tests in this class. Deletes any files whose caption
+     * match the TEST_CAPTION used by the set up, or NEW_TEST_CAPTION used by the changeCaption test.
      */
     public static void tearDown() {
         File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(),"/Android/data/com.example.photogallery/files/Pictures");
         File[] fList = file.listFiles();
         if(fList != null) {
             List<File> filesToDelete = Arrays.stream(fList)
-                    .filter(f -> f.getName().contains(TEST_CAPTION))
+                    .filter(f -> f.getName().contains(TEST_CAPTION) || f.getName().contains(NEW_TEST_CAPTION))
                     .collect(Collectors.toList());
             filesToDelete.forEach(f -> {
                 if(f.exists()) {
@@ -88,8 +99,8 @@ public class MainActivityTest {
      */
     public void performSearchUsingDate_success() {
         Instant now = Instant.now();
-        String yesterday = new SimpleDateFormat("yyyy‐MM‐dd HH:mm:ss").format(Date.from(now.minus(1, ChronoUnit.DAYS)));
-        String tomorrow = new SimpleDateFormat("yyyy‐MM‐dd HH:mm:ss").format(Date.from(now.plus(1, ChronoUnit.DAYS)));
+        String yesterday = new SimpleDateFormat(TEXT_DATE_FORMAT).format(Date.from(now.minus(1, ChronoUnit.DAYS)));
+        String tomorrow = new SimpleDateFormat(TEXT_DATE_FORMAT).format(Date.from(now.plus(1, ChronoUnit.DAYS)));
         onView(withId(R.id.btnSearch)).perform(click());
         onView(withId(R.id.etFromDateTime)).perform(clearText(), replaceText(yesterday), closeSoftKeyboard());
         onView(withId(R.id.etToDateTime)).perform(clearText(), replaceText(tomorrow), closeSoftKeyboard());
@@ -104,8 +115,8 @@ public class MainActivityTest {
      */
     public void performSearchUsingDate_failure() {
         Instant now = Instant.now();
-        String tomorrow = new SimpleDateFormat("yyyy‐MM‐dd HH:mm:ss").format(Date.from(now.plus(1, ChronoUnit.DAYS)));
-        String nextWeek = new SimpleDateFormat("yyyy‐MM‐dd HH:mm:ss").format(Date.from(now.plus(7, ChronoUnit.DAYS)));
+        String tomorrow = new SimpleDateFormat(TEXT_DATE_FORMAT).format(Date.from(now.plus(1, ChronoUnit.DAYS)));
+        String nextWeek = new SimpleDateFormat(TEXT_DATE_FORMAT).format(Date.from(now.plus(7, ChronoUnit.DAYS)));
         onView(withId(R.id.btnSearch)).perform(click());
         onView(withId(R.id.etFromDateTime)).perform(clearText(), replaceText(tomorrow), closeSoftKeyboard());
         onView(withId(R.id.etToDateTime)).perform(clearText(), replaceText(nextWeek), closeSoftKeyboard());
@@ -128,6 +139,17 @@ public class MainActivityTest {
         onView(withId(R.id.etCaption)).check(matches(withText(TEST_CAPTION)));
     }
 
+    @Test
+    /**
+     * Changes caption and validate that the change is stored.
+     */
+    public void changeCaption() {
+        onView(withId(R.id.etCaption)).perform(clearText(), replaceText(NEW_TEST_CAPTION), closeSoftKeyboard());
+        onView(withId(R.id.btnNext)).perform(click());
+        onView(withId(R.id.btnPrev)).perform(click());
+        onView(withId(R.id.etCaption)).check(matches(withText(NEW_TEST_CAPTION)));
+    }
+
     /**
      * Copies a png from resources to the file system with the expected naming system to be used for
      * test data.
@@ -140,7 +162,7 @@ public class MainActivityTest {
         Drawable drawable = context.getDrawable(resId);
         Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
 
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String timeStamp = new SimpleDateFormat(FILE_DATE_FORMAT).format(new Date());
         String imageFileName = "_" + TEST_CAPTION + "_" + timeStamp + "_";
         File storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
