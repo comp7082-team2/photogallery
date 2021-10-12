@@ -22,12 +22,9 @@ public class PhotoRepository implements IPhotoRepository {
 
     private List<Photo> photos;
 
-    public PhotoRepository() {
-        loadPhotos();
-    }
-
     @Override
     public List<Photo> findPhotos(Date startTimestamp, Date endTimestamp, String keywords, String latitude, String longitude) {
+        loadPhotos();
         DateFormat format = new SimpleDateFormat("yyyyMMdd");
         return this.photos.stream()
                 // Filter for photos that have a date stamp that comes after the startTimestamp

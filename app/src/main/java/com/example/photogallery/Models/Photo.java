@@ -19,10 +19,6 @@ public class Photo {
         return photoFile;
     }
 
-    public void setPhotoFile(File photoFile) {
-        this.photoFile = photoFile;
-    }
-
     public String getCaption() {
         if (photoFile == null) {
             return null;
@@ -43,7 +39,9 @@ public class Photo {
                 .stream()
                 .collect(Collectors.joining("_"));
         File from = new File(photoFile.getAbsolutePath());
-        from.renameTo(new File(newFilePath));
+        File to = new File(newFilePath);
+        from.renameTo(to);
+        this.photoFile = to;
     }
 
     public String getDatestamp() {

@@ -1,16 +1,8 @@
 package com.example.photogallery.Views;
 
-import static com.example.photogallery.Utils.ExifHelper.convert;
-import static com.example.photogallery.Utils.ExifHelper.latitudeRef;
-import static com.example.photogallery.Utils.ExifHelper.longitudeRef;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.location.Location;
-import android.media.ExifInterface;
 import android.os.Bundle;
-import android.os.Looper;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,14 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.photogallery.Presenters.GalleryPresenter;
 import com.example.photogallery.R;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
-
-import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity implements GalleryPresenter.View {
 

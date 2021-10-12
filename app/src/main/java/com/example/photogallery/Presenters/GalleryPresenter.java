@@ -207,7 +207,7 @@ public class GalleryPresenter {
     }
 
     public void scrollPhotos(boolean isNext, String caption) {
-        if (caption != null && !caption.isEmpty()) {
+        if (caption != null) {
             Photo photo = photos.get(index);
             photo.updateCaption(caption);
             photos.set(index, photo);
