@@ -2,12 +2,18 @@ package com.example.photogallery.Models;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 public class Photo {
+
+    private static final String TAG = Photo.class.getName();
 
     private File photoFile;
 
@@ -57,5 +63,16 @@ public class Photo {
             return null;
         }
         return BitmapFactory.decodeFile(photoFile.getPath());
+    }
+
+    public Date getDate() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        String[] attr = photoFile.getAbsolutePath().split("_");
+        try {
+            return format.parse(attr[2] + "_" + attr[3]);
+        } catch (ParseException e) {
+            Log.e(TAG, e.getMessage(), e);
+        }
+        return null;
     }
 }

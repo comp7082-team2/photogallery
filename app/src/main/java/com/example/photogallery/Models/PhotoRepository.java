@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +19,10 @@ import java.util.stream.Collectors;
 public class PhotoRepository implements IPhotoRepository {
 
     private static final String TAG = PhotoRepository.class.getName();
+
+    /**
+     * Used for threshold comparison of latitude and longitude.
+     */
     private static final double THRESHOLD = 0.0001;
 
     private List<Photo> photos;
@@ -70,6 +75,8 @@ public class PhotoRepository implements IPhotoRepository {
                     }
                     return true;
                 })
+                // Sort by Date created to provide consistent return order since File.listFiles does not guarantee any order
+                .sorted(Comparator.comparing(Photo::getDate))
                 .collect(Collectors.toList());
     }
 
