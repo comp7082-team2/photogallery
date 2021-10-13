@@ -6,9 +6,6 @@ import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -30,26 +27,11 @@ public class PhotoRepository implements IPhotoRepository {
     @Override
     public List<Photo> findPhotos(Date startTimestamp, Date endTimestamp, String keywords, String latitude, String longitude) {
         loadPhotos();
-        DateFormat format = new SimpleDateFormat("yyyyMMdd");
         return this.photos.stream()
                 // Filter for photos that have a date stamp that comes after the startTimestamp
-                .filter(photo -> {
-                    try {
-                        return startTimestamp == null || startTimestamp.before(format.parse(photo.getDatestamp()));
-                    } catch (ParseException e) {
-                        Log.e(TAG, e.getMessage(), e);
-                    }
-                    return true;
-                })
+                .filter(photo -> startTimestamp == null || startTimestamp.before(photo.getDate()))
                 // Filter for photos that have a date stamp that comes before the endTimestamp
-                .filter(photo -> {
-                    try {
-                        return endTimestamp == null || endTimestamp.after(format.parse(photo.getDatestamp()));
-                    } catch (ParseException e) {
-                        Log.e(TAG, e.getMessage(), e);
-                    }
-                    return true;
-                })
+                .filter(photo -> endTimestamp == null || endTimestamp.after(photo.getDate()))
                 // Filter for photos with a caption that contains search keywords
                 .filter(photo -> keywords == null || keywords.isEmpty() || photo.getCaption().contains(keywords))
                 // Filter for photos that match the provided latitude and/or longitude
