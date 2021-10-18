@@ -1,4 +1,4 @@
-package com.example.photogallery;
+package com.example.photogallery.Views;
 
 import android.content.Intent;
 
@@ -6,9 +6,10 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
 import android.view.View;
 import android.widget.EditText;
+
+import com.example.photogallery.R;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -44,14 +45,15 @@ public class SearchActivity extends AppCompatActivity {
         Intent i = new Intent();
         EditText from = (EditText) findViewById(R.id.etFromDateTime);
         EditText to = (EditText) findViewById(R.id.etToDateTime);
+        EditText latitude = (EditText) findViewById(R.id.etLatitude);
+        EditText longitude = (EditText) findViewById(R.id.etLongitude);
         EditText keywords = (EditText) findViewById(R.id.etKeywords);
         i.putExtra("STARTTIMESTAMP", from.getText() != null ? from.getText().toString() : "");
         i.putExtra("ENDTIMESTAMP", to.getText() != null ? to.getText().toString() : "");
+        i.putExtra("LATITUDE", latitude.getText() != null ? latitude.getText().toString() : "");
+        i.putExtra("LONGITUDE", longitude.getText() != null ? longitude.getText().toString() : "");
         i.putExtra("KEYWORDS", keywords.getText() != null ? keywords.getText().toString() : "");
         setResult(RESULT_OK, i);
         finish();
     }
-
-
-
 }
