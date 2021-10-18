@@ -28,7 +28,7 @@ public class MainActivityTest {
     @Test
     public void performSearchUsingDate() {
         onView(withId(R.id.btnSearch)).perform(click());
-        onView(withId(R.id.etFromDateTime)).perform(clearText(), typeText(""), closeSoftKeyboard());
+        onView(withId(R.id.etFromDateTime)).perform(clearText(), typeText("2021-09-19 00:00:00"), closeSoftKeyboard());
         onView(withId(R.id.etToDateTime)).perform(clearText(), typeText(""), closeSoftKeyboard());
         onView(withId(R.id.go)).perform(click());
     }
