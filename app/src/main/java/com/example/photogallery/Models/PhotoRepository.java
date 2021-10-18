@@ -24,6 +24,10 @@ public class PhotoRepository implements IPhotoRepository {
 
     private List<Photo> photos;
 
+    private static  PhotoRepository instance;
+
+    private PhotoRepository() {}
+
     @Override
     public List<Photo> findPhotos(Date startTimestamp, Date endTimestamp, String keywords, String latitude, String longitude) {
         loadPhotos();
@@ -83,5 +87,12 @@ public class PhotoRepository implements IPhotoRepository {
     @Override
     public void save(Photo photo) {
         photos.add(photo);
+    }
+
+    public static PhotoRepository getInstance() {
+        if(instance == null) {
+            instance = new PhotoRepository();
+        }
+        return instance;
     }
 }
