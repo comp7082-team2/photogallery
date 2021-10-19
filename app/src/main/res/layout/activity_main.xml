@@ -4,85 +4,96 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".Views.MainActivity">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/ivGallery"
+        android:layout_width="160dp"
+        android:layout_height="0dp"
         android:layout_marginTop="36dp"
+        android:layout_marginBottom="35dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvTimestamp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_launcher_foreground"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
-        android:id="@+id/leftButton"
+        android:id="@+id/btnPrev"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="256dp"
+        android:onClick="scrollPhotos"
         android:text="Left"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/snap"
+        app:layout_constraintEnd_toStartOf="@+id/snap"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/rightButton"
+        android:id="@+id/btnNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="256dp"
         android:layout_marginEnd="16dp"
+        android:onClick="scrollPhotos"
         android:text="Right"
+        app:layout_constraintBaseline_toBaselineOf="@+id/snap"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/snap" />
 
     <Button
-        android:id="@+id/snapButton"
+        android:id="@+id/snap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="256dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="1dp"
+        android:onClick="takePhoto"
         android:text="Snap"
-        app:layout_constraintEnd_toStartOf="@+id/rightButton"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toEndOf="@+id/leftButton"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/btnNext"
+        app:layout_constraintStart_toEndOf="@+id/btnPrev"
+        app:layout_constraintTop_toBottomOf="@+id/tvTimestamp" />
 
     <TextView
-        android:id="@+id/timeStampTextView"
+        android:id="@+id/tvTimestamp"
         android:layout_width="97dp"
         android:layout_height="22dp"
+        android:layout_marginTop="199dp"
         android:text="Datestamp"
-        app:layout_constraintBottom_toTopOf="@+id/snapButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/captionEditText"
+        android:id="@+id/etCaption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="272dp"
         android:ems="10"
         android:hint="Caption your picture..."
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/snapButton"
-        app:layout_constraintVertical_bias="0.287" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/searchButton"
+        android:id="@+id/btnSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:onClick="openSearch"
         android:text="Search"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.852" />
+        app:layout_constraintStart_toStartOf="@+id/etCaption"
+        app:layout_constraintTop_toBottomOf="@+id/etCaption" />
+
+    <Button
+        android:id="@+id/btnShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="54dp"
+        android:text="Share"
+        android:onClick="sharePhoto"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btnSearch"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
