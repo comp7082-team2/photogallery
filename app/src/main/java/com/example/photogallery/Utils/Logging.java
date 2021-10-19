@@ -96,9 +96,8 @@ public class Logging {
         Log.d("Start Call: ", builderString.toString());
     }
     
-    @AfterReturning(pointcut="execution(* *.getPhotoFile(..))", returning="photoFile")
+    @After(pointcut="execution(* *.getPhotoFile(..))")
     public void getPhotoFile2(JoinPoint joinPoint, File photoFile){
-        
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
