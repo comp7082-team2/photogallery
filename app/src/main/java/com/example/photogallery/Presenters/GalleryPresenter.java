@@ -43,7 +43,7 @@ public class GalleryPresenter {
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int SEARCH_ACTIVITY_REQUEST_CODE = 2;
     private static final String AUTHORITY = "com.example.photogallery.fileprovider";
-    private static final String IMAGE_TYPE_JPEG = "image/jpg";
+    private static final String IMAGE_TYPE_JPEG = "image/jpeg";
     private static final String TAG = GalleryPresenter.class.getName();
 
     private FusedLocationProviderClient fusedLocationClient;
@@ -202,7 +202,8 @@ public class GalleryPresenter {
     public void sharePhoto() {
         Intent share = new Intent(Intent.ACTION_SEND);
         share.setType(IMAGE_TYPE_JPEG);
-        share.putExtra(Intent.EXTRA_STREAM, Uri.parse(photos.get(index).getPhotoFile().getPath()));
+        Uri photoURI = FileProvider.getUriForFile(context, AUTHORITY, photos.get(index).getPhotoFile());
+        share.putExtra(Intent.EXTRA_STREAM, photoURI);
         context.startActivity(Intent.createChooser(share, "Share Image"));
     }
 
