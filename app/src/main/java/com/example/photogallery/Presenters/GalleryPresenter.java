@@ -22,6 +22,9 @@ import androidx.core.content.FileProvider;
 import com.example.photogallery.Models.IPhotoRepository;
 import com.example.photogallery.Models.Photo;
 import com.example.photogallery.Models.PhotoRepository;
+import com.example.photogallery.Utils.FileHelper;
+import com.example.photogallery.Utils.IFileHelper;
+import com.example.photogallery.Utils.ProxyFileHelper;
 import com.example.photogallery.Views.MainActivity;
 import com.example.photogallery.Views.SearchActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -53,12 +56,16 @@ public class GalleryPresenter {
     private double longitude = 0.0;
 
     private IPhotoRepository photoRepository;
+    private IFileHelper fileHelper;
+
     private Activity context;
     private List<Photo> photos;
     private int index = 0;
 
     public GalleryPresenter(Activity context) {
         this.context = context;
+        fileHelper = new ProxyFileHelper();
+
         photoRepository = PhotoRepository.getInstance();
         photos = photoRepository.findPhotos(null, null, null, null, null);
         displayPhoto();
@@ -159,13 +166,8 @@ public class GalleryPresenter {
     }
 
     private File createImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "__" + timeStamp + "_";
-        File storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
-
+        File image = fileHelper.createFile(context);
         photoRepository.save(new Photo(image));
-
         return image;
     }
 
