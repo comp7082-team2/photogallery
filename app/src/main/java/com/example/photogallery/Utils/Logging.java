@@ -43,7 +43,7 @@ public class Logging {
         builderString.append(latitude);
         builderString.append("\nLongitude: ");
         builderString.append(longitude);
-        Log.d("Start Call: ", builderString.toString());
+        Log.v("Start Call: ", builderString.toString());
     }
 
     @After("execution(* *.findPhotos(..))")
@@ -51,7 +51,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Finish Call: ", builderString.toString());
+        Log.v("Finish Call: ", builderString.toString());
     }
 
     @Before("execution(* *.loadPhotos(..))")
@@ -59,7 +59,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
         
-        Log.d("Start Call: ", builderString.toString());
+        Log.v("Start Call: ", builderString.toString());
     }
 
     @After("execution(* *.loadPhotos(..))")
@@ -67,7 +67,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Finish Call: ", builderString.toString());
+        Log.v("Finish Call: ", builderString.toString());
     }
 
     @Before("execution (* *.save(..))")
@@ -76,7 +76,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Start Call: ", builderString.toString());
+        Log.v("Start Call: ", builderString.toString());
     }
 
     @After("execution(* *.save(..))")
@@ -84,7 +84,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Finish Call: ", builderString.toString());
+        Log.v("Finish Call: ", builderString.toString());
     }
 
     // Models/Photo.java
@@ -93,7 +93,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
         
-        Log.d("Start Call: ", builderString.toString());
+        Log.v("Start Call: ", builderString.toString());
     }
     
     @After("execution(* *.getPhotoFile(..))")
@@ -101,7 +101,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Finish Call: ", builderString.toString());
+        Log.v("Finish Call: ", builderString.toString());
     }
 
     @Before("execution(* *.getCaption(..))")
@@ -109,7 +109,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Start Call: ", builderString.toString());
+        Log.v("Start Call: ", builderString.toString());
     }
 
     @AfterReturning(pointcut="execution(* *.getCaption(..))", returning="caption")
@@ -120,7 +120,7 @@ public class Logging {
         builderString.append("\nReturn Caption: ");
         builderString.append(caption);
 
-        Log.d("Finish Call:", builderString.toString());
+        Log.v("Finish Call:", builderString.toString());
     }
 
     @Before("execution(* *.updateCaption(..))")
@@ -133,7 +133,7 @@ public class Logging {
         builderString.append("\nNew Caption: ");
         builderString.append(caption);
 
-        Log.d("Start Call: ", builderString.toString());
+        Log.v("Start Call: ", builderString.toString());
     }
 
     @After("execution(* *.updateCaption(..))")
@@ -141,7 +141,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Finish Call: ", builderString.toString());
+        Log.v("Finish Call: ", builderString.toString());
     }
 
     @Before("execution(* *.getDatestamp(..))")
@@ -149,7 +149,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Start Call: ", builderString.toString());
+        Log.v("Start Call: ", builderString.toString());
     }   
 
     @AfterReturning(pointcut="execution(* *.getDatestamp(..))", returning="dateString")
@@ -160,7 +160,7 @@ public class Logging {
         builderString.append("\nReturn Date Stamp: ");
         builderString.append(dateString);
 
-        Log.d("Finish Call:", builderString.toString());
+        Log.v("Finish Call:", builderString.toString());
     }
 
     @Before("execution(* *.getBitmap(..))")
@@ -168,7 +168,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Start Call: ", builderString.toString());
+        Log.v("Start Call: ", builderString.toString());
     }
 
     @After("execution(* *.getBitmap(..))")
@@ -176,7 +176,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Finish Call:", builderString.toString());
+        Log.v("Finish Call:", builderString.toString());
     }
 
     @Before("execution(* *.getDate(..))")
@@ -184,7 +184,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Start Call: ", builderString.toString());
+        Log.v("Start Call: ", builderString.toString());
     }
 
     @AfterReturning(pointcut="execution(* *.getDate(..))", returning="date")
@@ -196,7 +196,7 @@ public class Logging {
         if (date==null){builderString.append("null");}
         else{builderString.append(date);}
 
-        Log.d("Finish Call:", builderString.toString());
+        Log.v("Finish Call:", builderString.toString());
     }
 
     // Utils/ExifHelper.java
@@ -210,7 +210,7 @@ public class Logging {
         builderString.append("\nDecimal to DMS Conversion Parameters (No Reference)\nLatitude/Longitude in Decimal:");
         builderString.append(lat_long);
 
-        Log.d("Start Call: ", builderString.toString());
+        Log.v("Start Call: ", builderString.toString());
     }
 
     @AfterReturning(pointcut="execution(* *.convert(..))", returning="DMS")
@@ -221,7 +221,7 @@ public class Logging {
         builderString.append("\nReturn Latitude/Longitude in DMS (No Reference): ");
         builderString.append(DMS);
 
-        Log.d("Finish Call:", builderString.toString());
+        Log.v("Finish Call:", builderString.toString());
     }
 
     @Before("execution(* *.latitudeRef(..))")
@@ -234,7 +234,7 @@ public class Logging {
         builderString.append("\nLatitude Reference Converter Parameters\nLatitude:");
         builderString.append(latitude);
 
-        Log.d("Start Call: ", builderString.toString());
+        Log.v("Start Call: ", builderString.toString());
     }
 
     @AfterReturning(pointcut="execution(* *.latitudeRef(..))", returning="latitudeRef")
@@ -245,7 +245,7 @@ public class Logging {
         builderString.append("\nReturn Latitude Reference: ");
         builderString.append(latitudeRef);
 
-        Log.d("Finish Call:", builderString.toString());
+        Log.v("Finish Call:", builderString.toString());
     }
 
     @Before("execution(* *.longitudeRef(..))")
@@ -258,7 +258,7 @@ public class Logging {
         builderString.append("\nLongitude Reference Converter Parameters\nLongitude:");
         builderString.append(longitude);
 
-        Log.d("Start Call: ", builderString.toString());
+        Log.v("Start Call: ", builderString.toString());
     }
 
     @AfterReturning(pointcut="execution(* *.longitudeRef(..))", returning="longitudeRef")
@@ -269,7 +269,7 @@ public class Logging {
         builderString.append("\nReturn Longitude Reference: ");
         builderString.append(longitudeRef);
 
-        Log.d("Finish Call:", builderString.toString());
+        Log.v("Finish Call:", builderString.toString());
     }
     
     // GalleryPresenter.java
@@ -278,7 +278,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Start Call: ", builderString.toString());
+        Log.v("Start Call: ", builderString.toString());
     }
 
     @After("execution(* *.startLocationUpdates(..))")
@@ -286,7 +286,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Finish Call: ", builderString.toString());
+        Log.v("Finish Call: ", builderString.toString());
     }
 
     @Before("execution(* *.stopLocationUpdates(..))")
@@ -294,7 +294,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Start Call: ", builderString.toString());
+        Log.v("Start Call: ", builderString.toString());
     }
 
     @After("execution(* *.stopLocationUpdates(..))")
@@ -302,7 +302,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Finish Call: ", builderString.toString());
+        Log.v("Finish Call: ", builderString.toString());
     }
 
     @Before("execution(* *.setExif(..))")
@@ -315,7 +315,7 @@ public class Logging {
         builderString.append("\nSetting EXIF at: ");
         builderString.append(path);
 
-        Log.d("Start Call: ", builderString.toString());
+        Log.v("Start Call: ", builderString.toString());
     }
 
     @After("execution(* *.setExif(..))")
@@ -323,7 +323,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Finish Call: ", builderString.toString());
+        Log.v("Finish Call: ", builderString.toString());
     }
 
     @Before("execution(* *.takePhoto(..))")
@@ -331,7 +331,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Start Call: ", builderString.toString());
+        Log.v("Start Call: ", builderString.toString());
     }
 
     @After("execution(* *.takePhoto(..))")
@@ -339,7 +339,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Finish Call: ", builderString.toString());
+        Log.v("Finish Call: ", builderString.toString());
     }    
 
     @Before("execution(* *.openSearch(..))")
@@ -347,7 +347,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Start Call: ", builderString.toString());
+        Log.v("Start Call: ", builderString.toString());
     }
 
     @After("execution(* *.openSearch(..))")
@@ -355,7 +355,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Finish Call: ", builderString.toString());
+        Log.v("Finish Call: ", builderString.toString());
     }
 
     @Before("execution(* com.example.photogallery.Presenters.GalleryPresenter.displayPhoto(..))")
@@ -363,7 +363,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Start Call: ", builderString.toString());
+        Log.v("Start Call: ", builderString.toString());
     }
 
     @After("execution(* *.displayPhoto(..))")
@@ -371,7 +371,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Finish Call: ", builderString.toString());
+        Log.v("Finish Call: ", builderString.toString());
     }
 
     @Before("execution(* *.createImageFile(..))")
@@ -379,7 +379,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Start Call: ", builderString.toString());
+        Log.v("Start Call: ", builderString.toString());
     }
 
     @After("execution(* com.example.photogallery.Presenters.GalleryPresenter.createImageFile(..))")
@@ -387,7 +387,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Finish Call: ", builderString.toString());
+        Log.v("Finish Call: ", builderString.toString());
     }
 
     @Before("execution(* com.example.photogallery.Presenters.GalleryPresenter.onActivityResult(..))")
@@ -403,7 +403,7 @@ public class Logging {
         builderString.append("\nresultCode: ");
         builderString.append(resultCode);
         
-        Log.d("Start Call: ", builderString.toString());
+        Log.v("Start Call: ", builderString.toString());
     }
 
     @After("execution(* *.onActivityResult(..))")
@@ -411,7 +411,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Finish Call: ", builderString.toString());
+        Log.v("Finish Call: ", builderString.toString());
     } 
     
     @Before("execution(* *.sharePhoto(..))")
@@ -419,7 +419,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Start Call: ", builderString.toString());
+        Log.v("Start Call: ", builderString.toString());
     }
 
     @After("execution(* *.sharePhoto(..))")
@@ -427,7 +427,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Finish Call: ", builderString.toString());
+        Log.v("Finish Call: ", builderString.toString());
     }
     
     @Before("execution(* com.example.photogallery.Presenters.GalleryPresenter.scrollPhotos(..))")
@@ -443,7 +443,7 @@ public class Logging {
         builderString.append("\ncaption: ");
         builderString.append(caption);
         
-        Log.d("Start Call: ", builderString.toString());
+        Log.v("Start Call: ", builderString.toString());
     }
 
     @After("execution(* com.example.photogallery.Presenters.GalleryPresenter.scrollPhotos(..))")
@@ -451,7 +451,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Finish Call: ", builderString.toString());
+        Log.v("Finish Call: ", builderString.toString());
     }
 
     // SearchActivity.java
@@ -460,7 +460,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
         
-        Log.d("Start Call: ", builderString.toString());
+        Log.v("Start Call: ", builderString.toString());
     }
 
     @After("execution(* *.onCreate(..))")
@@ -468,7 +468,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Finish Call: ", builderString.toString());
+        Log.v("Finish Call: ", builderString.toString());
     }
 
     @Before("execution(* *.cancel(..))")
@@ -476,7 +476,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
         
-        Log.d("Start Call: ", builderString.toString());
+        Log.v("Start Call: ", builderString.toString());
     }
 
     @After("execution(* *.cancel(..))")
@@ -484,7 +484,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Finish Call: ", builderString.toString());
+        Log.v("Finish Call: ", builderString.toString());
     }
 
     @Before("execution(* *.go(..))")
@@ -492,7 +492,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
         
-        Log.d("Start Call: ", builderString.toString());
+        Log.v("Start Call: ", builderString.toString());
     }
 
     @After("execution(* *.go(..))")
@@ -500,7 +500,7 @@ public class Logging {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
-        Log.d("Finish Call: ", builderString.toString());
+        Log.v("Finish Call: ", builderString.toString());
     }
 
     // MainActivity
@@ -523,7 +523,7 @@ public class Logging {
         builderString.append("\nIntent: ");
         builderString.append(intent);
 
-        Log.d("Start Call: ", builderString.toString());
+        Log.v("Start Call: ", builderString.toString());
     }
 
     @Before("execution(* com.example.photogallery.Views.MainActivity.displayPhoto(..))")
@@ -546,6 +546,6 @@ public class Logging {
         builderString.append("\nNext Button Flag: ");
         builderString.append(isLast);
         
-        Log.d("Start Call: ", builderString.toString());
+        Log.v("Start Call: ", builderString.toString());
     }
 }
