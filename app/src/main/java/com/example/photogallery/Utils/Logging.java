@@ -9,7 +9,6 @@ import org.aspectj.lang.annotation.AfterReturning;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.io.File;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 
 @Aspect
@@ -71,16 +70,11 @@ public class Logging {
         Log.d("Finish Call: ", builderString.toString());
     }
 
-    // TODO: PhotoRepository: save() - Log photo argument?
     @Before("execution (* *.save(..))")
     public void save1(JoinPoint joinPoint){
-        // Object[] args = joinPoint.getArgs();
-        // String photo = (String) args[0];
 
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
-        // builderString.append("\nAdding photo: ");
-        // builderString.append(photo);
 
         Log.d("Start Call: ", builderString.toString());
     }
@@ -94,9 +88,6 @@ public class Logging {
     }
 
     // Models/Photo.java
-    // TODO: Photo: Photo
-
-    // TODO: Photo: getPhotoFile() - display File return?
     @Before("execution(* *.getPhotoFile(..))")
     public void getPhotoFile1(JoinPoint joinPoint) {
         StringBuilder builderString = new StringBuilder();
@@ -107,13 +98,9 @@ public class Logging {
     
     @AfterReturning(pointcut="execution(* *.getPhotoFile(..))", returning="photoFile")
     public void getPhotoFile2(JoinPoint joinPoint, File photoFile){
-        // Object[] args = joinPoint.getArgs();
-        // String photo = (String) args[0];
         
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
-        // builderString.append("\nReturn Photo File: ");
-        // builderString.append(photoFile);
 
         Log.d("Finish Call: ", builderString.toString());
     }
@@ -185,14 +172,10 @@ public class Logging {
         Log.d("Start Call: ", builderString.toString());
     }
 
-    // TODO: getBitmap() - Express bitmap in Log.d?
-    @AfterReturning(pointcut="execution(* *.getBitmap(..))", returning="bitmap")
-    public void getDatestamp2(JoinPoint joinPoint, BitmapFactory bitmap) {
+    @After("execution(* *.getBitmap(..))")
+    public void getDatestamp2(JoinPoint joinPoint) {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
-
-        // builderString.append("\nReturn Date Stamp: ");
-        // builderString.append(dateString);
 
         Log.d("Finish Call:", builderString.toString());
     }
@@ -344,11 +327,8 @@ public class Logging {
         Log.d("Finish Call: ", builderString.toString());
     }
 
-    // TODO: takePhoto() - display parameters?
     @Before("execution(* *.takePhoto(..))")
     public void takePhoto1(JoinPoint joinPoint) {
-        // Object[] args = joinPoint.getArgs();
-
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
 
@@ -379,8 +359,7 @@ public class Logging {
         Log.d("Finish Call: ", builderString.toString());
     }
 
-    // TODO: calls both MainActivity and GalleryPresenter
-    @Before("execution(* *.displayPhoto(..))")
+    @Before("execution(* com.example.photogallery.Presenters.GalleryPresenter.displayPhoto(..))")
     public void displayPhoto1(JoinPoint joinPoint) {
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
@@ -404,7 +383,7 @@ public class Logging {
         Log.d("Start Call: ", builderString.toString());
     }
 
-    @After("execution(* *.createImageFile(..))")
+    @After("execution(* com.example.photogallery.Presenters.GalleryPresenter.createImageFile(..))")
     public void createImageFile2(JoinPoint joinPoint){
         StringBuilder builderString = new StringBuilder();
         builderString.append(joinPoint.toLongString());
@@ -412,7 +391,7 @@ public class Logging {
         Log.d("Finish Call: ", builderString.toString());
     }
 
-    @Before("execution(* *.onActivityResult(..))")
+    @Before("execution(* com.example.photogallery.Presenters.GalleryPresenter.onActivityResult(..))")
     public void onActivityResult1(JoinPoint joinPoint) {
         Object[] args = joinPoint.getArgs();
         int requestCode = (int) args[0];
@@ -523,5 +502,51 @@ public class Logging {
         builderString.append(joinPoint.toLongString());
 
         Log.d("Finish Call: ", builderString.toString());
+    }
+
+    // MainActivity
+    @Before("execution(* com.example.photogallery.Views.MainActivity.onActivityResult(..))")
+    public void onActivityResultMA1(JoinPoint joinPoint){
+        Object[] args = joinPoint.getArgs();
+
+        int requestCode = (int) args[0];
+        int resultCode = (int) args[1];
+        String intent = "null";
+
+        if(args[2] != null){intent = args[2].toString();}
+
+        StringBuilder builderString = new StringBuilder();
+        builderString.append(joinPoint.toLongString());
+        builderString.append("\nonActivityResult Parameters\nRequest Code: ");
+        builderString.append(requestCode);
+        builderString.append("\nResult Code: ");
+        builderString.append(resultCode);
+        builderString.append("\nIntent: ");
+        builderString.append(intent);
+
+        Log.d("Start Call: ", builderString.toString());
+    }
+
+    @Before("execution(* com.example.photogallery.Views.MainActivity.displayPhoto(..))")
+    public void displayPhotoMA1(JoinPoint joinPoint){
+        Object[] args = joinPoint.getArgs();
+
+        String caption = (String) args[1];
+        String datestamp = (String) args[2];
+        boolean isFirst = (boolean) args[3];
+        boolean isLast = (boolean) args[4];
+
+        StringBuilder builderString = new StringBuilder();
+        builderString.append(joinPoint.toLongString());
+        builderString.append("\nDisplay Photo Main Activity Parameters\nCaption: ");
+        builderString.append(caption);
+        builderString.append("\nDate Stamp: ");
+        builderString.append(datestamp);
+        builderString.append("\nPrevious Button Flag: ");
+        builderString.append(isFirst);
+        builderString.append("\nNext Button Flag: ");
+        builderString.append(isLast);
+        
+        Log.d("Start Call: ", builderString.toString());
     }
 }
