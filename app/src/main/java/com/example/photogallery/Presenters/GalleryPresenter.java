@@ -64,10 +64,9 @@ public class GalleryPresenter {
 
     public GalleryPresenter(Activity context) {
         this.context = context;
-
         fileHelper = new ProxyFileHelper();
-        photoRepository = new PhotoRepository();
 
+        photoRepository = PhotoRepository.getInstance();
         photos = photoRepository.findPhotos(null, null, null, null, null);
         displayPhoto();
 
