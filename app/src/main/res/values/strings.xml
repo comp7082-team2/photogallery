@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">PhotoGallery</string>
+    <string name="current_image">Current_Image</string>
+    <string name="from">From:</string>
+    <string name="date">Date</string>
+    <string name="to">To:</string>
+    <string name="keywords">Keywords:</string>
+    <string name="latitude">Latitude:</string>
+    <string name="longitude">Longitude:</string>
+    <string name="cancel">Cancel</string>
+    <string name="go">Go</string>
+    <string name="caption_your_picture">Caption your picture</string>
 </resources>
